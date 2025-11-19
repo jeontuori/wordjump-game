@@ -45,7 +45,7 @@ def make_bar(pct: float, width: int = 20) -> str:
     empty = width - filled
     return "■" * filled + "□" * empty
 
-def pick_start_goal(kv, candidates, min_sim=0.10, max_sim=0.12, max_trials=5000):
+def pick_start_goal(kv, candidates, min_sim=0.12, max_sim=0.13, max_trials=5000):
     """유사도 [min_sim, max_sim] 범위인 (start, goal) 뽑기"""
     pool = [w for w in candidates if w in kv.key_to_index]
     if len(pool) < 2:
@@ -126,8 +126,8 @@ def main():
         start, goal, sg_sim = pick_start_goal(
             kv,
             allowed,
-            min_sim=0.10,
-            max_sim=0.12,
+            min_sim=0.12,
+            max_sim=0.13,
         )
         st.session_state.start = start
         st.session_state.goal = goal
@@ -156,8 +156,8 @@ def main():
             start, goal, sg_sim = pick_start_goal(
                 kv,
                 allowed,
-                min_sim=0.10,
-                max_sim=0.12,
+                min_sim=0.12,
+                max_sim=0.13,
             )
             st.session_state.start = start
             st.session_state.goal = goal
