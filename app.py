@@ -401,7 +401,7 @@ def main():
             <b>뜻말잇기</b> · Korean Word Jump Game<br><br>
             임베딩: FastText 한국어 벡터 (cc. BY-SA)<br>
             단어의 빈도: 2003 국립국어원<br>
-            © 2025 fightingduck · <a href="https://github.com/jeontuori" target="_blank" style="color:#777; text-decoration:none;">GitHub</a>
+            © 2025 fightingduck · <a href="https://github.com/jeontuori/wordjump-game" target="_blank" style="color:#777; text-decoration:none;">GitHub</a>
         </div>
         """,
         unsafe_allow_html=True
