@@ -1,0 +1,5 @@
+streamlit
+gensim
+numpy
+pandas
+altair
