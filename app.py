@@ -73,7 +73,7 @@ def pick_start_goal(kv, candidates, min_sim=0.12, max_sim=0.13, max_trials=5000)
 
 def log_game_result(steps: int, success: bool, start_word: str | None = None, goal_word: str | None = None):
     """게임 결과를 Supabase에 기록하는 함수"""
-    supabase.table("game_play").insert({
+    supabase.table("wordjump_play").insert({
         "user_id": "anonymous",
         "steps": steps,
         "success": success,
