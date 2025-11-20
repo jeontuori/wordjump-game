@@ -231,23 +231,13 @@ def main():
     # 출발 단어와 도착 단어 박스로 만들기
     st.markdown(
         f"""
-        <div style="
-            background-color:#f5f5f5;
-            padding: 15px 20px;
-            border-radius: 10px;
-            border: 1px solid #ddd;
-            display: inline-block;
-            font-size: 15px;
-            margin-bottom: 15px;
-        ">
-            <b>[출발 단어]</b>
-<a href="https://www.google.com/search?q={start}" target="_blank" style="color:inherit; text-decoration:none;">{start}</a>
-
-            &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
-
-            <b>[도착 단어]</b>
-<a href="https://www.google.com/search?q={goal}" target="_blank" style="color:inherit; text-decoration:none;">{goal}</a>
-        </div>
+<div style="background-color:#f5f5f5; padding:15px 20px; border-radius:10px; border:1px solid #ddd; display:inline-block; font-size:15px; margin-bottom:15px;">
+  <b>[출발 단어]</b>
+  <a href="https://www.google.com/search?q={start}" target="_blank" style="color:inherit; text-decoration:none;">{start}</a>
+  &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
+  <b>[도착 단어]</b>
+  <a href="https://www.google.com/search?q={goal}" target="_blank" style="color:inherit; text-decoration:none;">{goal}</a>
+</div>
         """,
         unsafe_allow_html=True
     )
