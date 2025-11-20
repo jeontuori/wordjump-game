@@ -318,7 +318,17 @@ def main():
                 b1, b2, b3 = st.columns([2, 1, 2])
                 with b2:
                     submit = st.form_submit_button("점프")
-
+                restart = st.form_submit_button("이 단어로 처음부터 다시하기")
+                
+            if 'restart' in locals() and restart:
+                st.session_state.current = st.session_state.start
+                st.session_state.path = [st.session_state.start]
+                st.session_state.messages = []
+                st.session_state.last_warning = ""
+                st.session_state.last_success = ""
+                st.session_state.clear_input = True
+                st.rerun()
+                
             # 입력란에 자동 포커스
             st.markdown(
                 """
