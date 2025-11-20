@@ -430,10 +430,12 @@ def main():
             이러한 단어들은 지나치게 많은 단어와 유사도가 높게 책정되기 때문입니다.<br><br>
             생소한 단어가 출발 단어나 도착 단어로 주어질 수 있습니다.<br>모르는 단어는 눌러 보세요. '새 게임'도 적극 권장합니다.<br><br>
             ───────────────────────────────────────<br>
+            <div style="font-size:12px;">
             <b>뜻말잇기</b> · Korean Word Jump Game<br><br>
             임베딩: FastText 한국어 벡터 (cc. BY-SA)<br>
             단어 목록: 국립국어원 표준국어대사전 표제어<br>(2003 국립국어원 빈도 자료를 참고해 재구성)<br><br>
             © 2025 fightingduck · <a href="https://github.com/jeontuori/wordjump-game" target="_blank" style="color:#777; text-decoration:none;">GitHub</a>
+            </div>
         </div>
         """,
         unsafe_allow_html=True
