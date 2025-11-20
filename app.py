@@ -318,7 +318,9 @@ def main():
                 b1, b2, b3 = st.columns([2, 1, 2])
                 with b2:
                     submit = st.form_submit_button("점프")
-                restart = st.form_submit_button("이 단어로 처음부터 다시하기")
+                c1, c2, c3 = st.columns([1, 2, 1])
+                with c2:
+                    restart = st.form_submit_button("이 단어로 처음부터 다시하기")
                 
             if 'restart' in locals() and restart:
                 st.session_state.current = st.session_state.start
