@@ -242,18 +242,18 @@ def main():
         ">
             <b>[출발 단어]</b>
             <a href="https://www.google.com/search?q={start}"
-                target="_blank"
-                style="color:inherit; text-decoration:none;">
-                 {start}
+               target="_blank"
+               style="color:inherit; text-decoration:none;">
+                {start}
             </a>
-            
+
             &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
-            
+
             <b>[도착 단어]</b>
             <a href="https://www.google.com/search?q={goal}"
-                target="_blank"
-                style="color:inherit; text-decoration:none;">
-                 {goal}
+               target="_blank"
+               style="color:inherit; text-decoration:none;">
+                {goal}
             </a>
         </div>
         """,
