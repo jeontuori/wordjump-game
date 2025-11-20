@@ -318,7 +318,7 @@ def main():
                 b1, b2, b3 = st.columns([2, 1, 2])
                 with b2:
                     submit = st.form_submit_button("점프")
-                c1, c2, c3 = st.columns([1, 2, 1])
+                c1, c2, c3 = st.columns([1, 3, 1])
                 with c2:
                     restart = st.form_submit_button("이 단어로 처음부터 다시하기")
                 
