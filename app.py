@@ -1,5 +1,6 @@
 import random
 import numpy as np
+import math
 from numpy.linalg import norm
 from gensim.models import KeyedVectors
 import streamlit as st
@@ -370,8 +371,10 @@ def main():
             
             # 점프 실패
             if sim_cur < required:
+                # 0.0 ~ 1.0 범위의 sim_cur를 퍼센트로 바꾼 뒤 소수 첫째 자리에서 버림
+                sim_pct = math.floor(sim_cur * 1000) / 10  # 예: 0.349 → 34.9
                 st.session_state.last_warning = (
-                    f"{user}은(는) 관련이 적은 단어입니다.\n유사도: {sim_cur*100:.1f}%"
+                    f"{user}은(는) 관련이 적은 단어입니다.\n유사도: {sim_pct:.1f}%"
                 )
             
             # 점프 성공
@@ -390,11 +393,15 @@ def main():
                 # 간단한 텍스트 막대 그래프
                 bar_cur = make_bar(cur_pct, width=20)
                 bar_goal = make_bar(goal_pct, width=20)
+
+                # 소수 첫째 자리에서 버림한 퍼센트 값
+                cur_pct_trunc = math.floor(cur_pct * 10) / 10
+                goal_pct_trunc = math.floor(goal_pct * 10) / 10
                 
                 msg = (
                     f"**[{user}의 유사도]**\n\n"
-                    f"**{previous}**: {cur_pct:.1f}% {bar_cur}\n\n"
-                    f"**{goal}**: {goal_pct:.1f}% {bar_goal}"
+                    f"**{previous}**: {cur_pct_trunc:.1f}% {bar_cur}\n\n"
+                    f"**{goal}**: {goal_pct_trunc:.1f}% {bar_goal}"
                 )
                 st.session_state.messages.append(msg)
                 
@@ -411,7 +418,10 @@ def main():
     
                 # 점프 성공 메시지
                 else:
-                    st.session_state.last_success = f"**{previous}** → **{user}** 점프! (유사도: {sim_cur*100:.1f}%)"
+                    sim_cur_pct_trunc = math.floor(sim_cur * 1000) / 10
+                    st.session_state.last_success = (
+                        f"**{previous}** → **{user}** 점프! (유사도: {sim_cur_pct_trunc:.1f}%)"
+                    )
 
         # 다음 렌더에서 입력칸 비우기
         st.session_state.clear_input = True
