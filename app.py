@@ -71,7 +71,7 @@ def pick_start_goal(kv, candidates, min_sim=0.12, max_sim=0.13, max_trials=5000)
 
     raise RuntimeError("조건에 맞는 (start, goal)을 찾지 못했습니다. 다시 시작해 주세요.")
 
-def log_game_result(steps: int, success: bool, start_word: str, goal_word: str):
+def log_game_result(steps: int, success: bool, start_word: str | None = None, goal_word: str | None = None):
     """게임 결과를 Supabase에 기록하는 함수"""
     supabase.table("game_play").insert({
         "user_id": "anonymous",
@@ -399,11 +399,6 @@ def main():
                 st.session_state.messages.append(msg)
                 
                 # 도착 단어 도달 메시지
-                if user == goal:
-                    # 지금까지 점프 횟수 = 지나온 단어 수 - 1
-                    steps = len(st.session_state.path) - 1
-                    log_game_result(steps=steps, success=True)
-                    st.session_state.game_started = False
                 if user == goal:
                     steps = len(st.session_state.path) - 1
                     log_game_result(
