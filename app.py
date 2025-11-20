@@ -241,20 +241,12 @@ def main():
             margin-bottom: 15px;
         ">
             <b>[출발 단어]</b>
-            <a href="https://www.google.com/search?q={start}"
-               target="_blank"
-               style="color:inherit; text-decoration:none;">
-                {start}
-            </a>
+            <a href="https://www.google.com/search?q={start}" target="_blank" style="color:inherit; text-decoration:none;">{start}</a>
 
             &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
 
             <b>[도착 단어]</b>
-            <a href="https://www.google.com/search?q={goal}"
-               target="_blank"
-               style="color:inherit; text-decoration:none;">
-                {goal}
-            </a>
+            <a href="https://www.google.com/search?q={goal}" target="_blank" style="color:inherit; text-decoration:none;">{goal}</a>
         </div>
         """,
         unsafe_allow_html=True
@@ -446,7 +438,7 @@ def main():
             유사도는 비슷한 맥락에서 함께 자주 쓰이는 단어들끼리 높게 책정됩니다.<br>
             게임의 재미를 위해, '사람'처럼 너무 일반적인 단어나 '해'와 같은 1음절 단어는 입력할 수 없습니다.<br>
             이러한 단어들은 지나치게 많은 단어와 유사도가 높게 책정되기 때문입니다.<br>
-            게임의 재미를 위해, 생소한 단어가 출발 단어나 도착 단어로 주어질 수 있습니다.<br>검색 또는 '새 게임'을 적극 권장합니다.<br><br>
+            생소한 단어가 출발 단어나 도착 단어로 주어질 수 있습니다.<br>모르는 단어는 눌러 보세요. '새 게임'도 적극 권장합니다.<br><br>
             ───────────────────────────────────────<br>
             <b>뜻말잇기</b> · Korean Word Jump Game<br><br>
             임베딩: FastText 한국어 벡터 (cc. BY-SA)<br>
