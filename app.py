@@ -438,7 +438,7 @@ def main():
             ───────────────────────────────────────<br>
             <b>뜻말잇기</b> · Korean Word Jump Game<br><br>
             임베딩: FastText 한국어 벡터 (cc. BY-SA)<br>
-            단어의 빈도: 2003 국립국어원<br>
+            단어 목록: 국립국어원 표준국어대사전 표제어<br>(2003 국립국어원 빈도 자료를 참고해 재구성)<br><br>
             © 2025 fightingduck · <a href="https://github.com/jeontuori/wordjump-game" target="_blank" style="color:#777; text-decoration:none;">GitHub</a>
         </div>
         """,
