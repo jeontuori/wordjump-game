@@ -5,6 +5,15 @@ from gensim.models import KeyedVectors
 import streamlit as st
 import pandas as pd
 import altair as alt
+from supabase import create_client, Client
+
+@st.cache_resource
+def get_supabase() -> Client:
+    url = st.secrets["SUPABASE_URL"]
+    key = st.secrets["SUPABASE_KEY"]
+    return create_client(url, key)
+
+supabase = get_supabase()
 
 EMBED_PATH = "ko_trimmed.vec"   # 트림된 임베딩 파일
 WORDS_PATH = "words.txt"        # 단어 + 빈도 파일
@@ -62,6 +71,16 @@ def pick_start_goal(kv, candidates, min_sim=0.12, max_sim=0.13, max_trials=5000)
 
     raise RuntimeError("조건에 맞는 (start, goal)을 찾지 못했습니다. 다시 시작해 주세요.")
 
+def log_game_result(steps: int, success: bool, start_word: str, goal_word: str):
+    """게임 결과를 Supabase에 기록하는 함수"""
+    supabase.table("game_play").insert({
+        "user_id": "anonymous",
+        "steps": steps,
+        "success": success,
+        "start_word": start_word,
+        "goal_word": goal_word,
+    }).execute()
+    
 sim_threshold = 0.3  # 일반 점프 가능 유사도 기준
 goal_threshold = 0.4 # 도착 단어 점프 가능 유사도 기준
 
@@ -147,7 +166,7 @@ def main():
     st.markdown("")
     st.markdown("비슷한 단어들로 점프하며 **출발 단어에서 도착 단어까지** 가 보세요.")
     st.markdown("**2음절 이상, 5음절 이하 명사만** 입력 가능합니다.")
-    st.markdown("점프하려면 유사도가 **30% 이상**이어야 하며, 정답 단어로 점프하려면 **40% 이상**이어야 합니다.")
+    st.markdown("점프하려면 유사도가 **30% 이상**이어야 하며, 마지막 도착 단어로 점프하려면 **40% 이상**이어야 합니다.")
 
     # '새 게임' 버튼 가운데 정렬
     c1, c2, c3 = st.columns([1, 1, 1])
@@ -381,7 +400,20 @@ def main():
                 
                 # 도착 단어 도달 메시지
                 if user == goal:
+                    # 지금까지 점프 횟수 = 지나온 단어 수 - 1
+                    steps = len(st.session_state.path) - 1
+                    log_game_result(steps=steps, success=True)
                     st.session_state.game_started = False
+                if user == goal:
+                    steps = len(st.session_state.path) - 1
+                    log_game_result(
+                        steps=steps,
+                        success=True,
+                        start_word=st.session_state.start,
+                        goal_word=st.session_state.goal
+                    )
+                    st.session_state.game_started = False
+    
                 # 점프 성공 메시지
                 else:
                     st.session_state.last_success = f"**{previous}** → **{user}** 점프! (유사도: {sim_cur*100:.1f}%)"
@@ -394,6 +426,7 @@ def main():
     st.markdown(
         """
         <div style='margin-top:50px; color:#777; font-size:14px; text-align:center;'>
+            유사도는 비슷한 맥락에서 함께 자주 쓰이는 단어들끼리 높게 책정됩니다.<br>
             게임의 재미를 위해, '사람'처럼 너무 일반적인 단어나 '해'와 같은 1음절 단어는 입력할 수 없습니다.<br>
             이러한 단어들은 지나치게 많은 단어와 유사도가 높게 책정되기 때문입니다.<br>
             게임의 재미를 위해, 생소한 단어가 출발 단어나 도착 단어로 주어질 수 있습니다.<br>검색 또는 '새 게임'을 적극 권장합니다.<br><br>
