@@ -72,7 +72,7 @@ def pick_start_goal(kv, candidates, min_sim=0.12, max_sim=0.13, max_trials=5000)
 
     raise RuntimeError("조건에 맞는 (start, goal)을 찾지 못했습니다. 다시 시작해 주세요.")
 
-def log_game_result(steps: int, success: bool, start_word: str | None = None, goal_word: str | None = None):
+def log_game_result(steps: int, success: bool, start_word: str | None = None, goal_word: str | None = None, path: list[str] | None = None):
     """게임 결과를 Supabase에 기록하는 함수"""
     supabase.table("wordjump-play").insert({
         "user_id": "anonymous",
@@ -80,6 +80,7 @@ def log_game_result(steps: int, success: bool, start_word: str | None = None, go
         "success": success,
         "start_word": start_word,
         "goal_word": goal_word,
+        "path": path,
     }).execute()
     
 sim_threshold = 0.3  # 일반 점프 가능 유사도 기준
@@ -418,7 +419,8 @@ def main():
                         steps=steps,
                         success=True,
                         start_word=st.session_state.start,
-                        goal_word=st.session_state.goal
+                        goal_word=st.session_state.goal,
+                        path=st.session_state.path,
                     )
                     st.session_state.game_started = False
     
